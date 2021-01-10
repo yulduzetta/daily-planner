@@ -5,9 +5,25 @@ var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 $("#currentDay").text(moment().format("dddd, MMMM Do, YYYY"));
 
 // color-flags the tasks based on the timestamp (past, present, future)
-var auditTasks = function (){
+var auditTasks = function () {
+  $(".hour").each(function (index) {
+    var taskTimestampHr = moment($(this).text(), "h A");
+    var nowTimestampHr = moment().hour("h A");
 
-}
+    console.log(taskTimestampHr);
+    if (taskTimestampHr.isAfter(nowTimestampHr)) {
+      // alert('FUTURE');
+      $(this).parent().children(".description").addClass("future");
+    }
+
+    else if (taskTimestampHr.isSame(nowTimestampHr, 'hour')){
+        $(this).parent().children('.description').addClass('present');
+    }
+    else {
+        $(this).parent().children('.description').addClass('past');
+    }
+  });
+};
 
 // on page load
 var loadTasks = function () {
