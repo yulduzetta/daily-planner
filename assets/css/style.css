@@ -23,6 +23,8 @@ textarea{
 
 .description{
   white-space: pre-wrap;
+  /* todo: remove once dynamc manip is implemented */
+  background: antiquewhite;
 }
 
 .time-block{
@@ -40,6 +42,7 @@ textarea{
   background-color: #ffffff;
   color: #000000;
   border-top: 1px dashed #000000;
+  text-align: end;
 }
 
 .past {
