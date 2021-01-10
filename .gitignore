@@ -453,8 +453,6 @@ dist
 
 # TernJS port file
 .tern-port
->>>>>>> Initial commit
-=======
 node_modules
 package-lock.json
 .vscode
