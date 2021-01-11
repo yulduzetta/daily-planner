@@ -59,6 +59,7 @@ $(".row .description").on("click select", function () {
 // when changes are unsaved, revert css styling
 $(".row .description").blur(function () {
   $(this).css("background-color", "");
+  $(this).parent().children('.err-msg').css('visibility', 'visible');
 });
 
 // on task save, update the tasks object and the localStorage
@@ -69,6 +70,7 @@ $(".row .saveBtn").on("click", function () {
   
   $(this).css({ "background-color": "#06aed5", color: "white" })
   editedTaskFieldEl.css("font-style", "normal");
+  $(this).parent().children('.err-msg').css('visibility', 'hidden');
   tasks[taskId] = text;
   localStorage.setItem("tasks", JSON.stringify(tasks));
 });

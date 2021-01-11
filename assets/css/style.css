@@ -75,3 +75,10 @@ textarea {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
+
+.err-msg {
+  padding: 10pt;
+  color: red;
+  font-style: italic;
+  visibility: hidden;
+}
