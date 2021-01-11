@@ -9,9 +9,7 @@ Planning can be stressful 🤯  and boring 🥱  at times, but we can't ignore i
 
 **To run the app, please follow either of the steps below:**
 - for remote run, simply navigate to https://yulduzetta.github.io/daily-planner/
-- to run locally, clone the repo and run `index.html 
-![05-third-party-apis-homework-demo](https://user-images.githubusercontent.com/13324397/104148601-87002480-5398-11eb-97be-17caf827f52b.gif)
-`file in your browser of choice.
+- to run locally, clone the repo and run `index.html` file in your browser of choice.
 
 
 **Happy Planning! 🎉** 
