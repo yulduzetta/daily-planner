@@ -48,42 +48,48 @@ var periodicallyUpdateCurrentTimeStamp = function () {
 
 // on task row click, highlight the task
 $(".row .description").on("click select", function () {
-  $(this).css({ "background-color": "white", "font-style": "italic" });
+  $(this).css({
+    "background-color": "white",
+    "font-style": "italic",
+    color: "black",
+  });
   $(this)
     .parent()
     .children(".saveBtn")
-    // swap save btn coloring to highlight the unsaved changes
+    // change save btn css to highlight the unsaved changes
     .css({ "background-color": "white", color: "#06aed5" });
 });
 
-// when changes are unsaved, revert css styling
+// indicate changes are unsaved
 $(".row .description").blur(function () {
-  $(this).css("background-color", "");
-  $(this).parent().children('.err-msg').css('visibility', 'visible');
+  $(this).css({ "background-color": "", color: "white" });
+  $(this).parent().children(".err-msg").css("visibility", "visible");
 });
 
 // on task save, update the tasks object and the localStorage
 $(".row .saveBtn").on("click", function () {
+  $(this).css({ "background-color": "#06aed5", color: "white" });
+  $(this).parent().children(".err-msg").css("visibility", "hidden");
+
+  // set to default styling on save
   var editedTaskFieldEl = $(this).parent().children(".description");
+  editedTaskFieldEl.css({ "font-style": "normal", color: "black" });
+
   var text = editedTaskFieldEl.val().trim();
   var taskId = editedTaskFieldEl.attr("data-task-id");
-  
-  $(this).css({ "background-color": "#06aed5", color: "white" })
-  editedTaskFieldEl.css("font-style", "normal");
-  $(this).parent().children('.err-msg').css('visibility', 'hidden');
   tasks[taskId] = text;
   localStorage.setItem("tasks", JSON.stringify(tasks));
 });
 
 // prompts to save unsaved changes before page reload
-window.addEventListener('beforeunload', function (e) {
+window.addEventListener("beforeunload", function (e) {
   e.preventDefault();
   // only prompt if there are unsaved tasks
   $(".saveBtn").each(function (index) {
-    if ($(this).css('background-color')==='rgb(255, 255, 255)'){
-      e.returnValue = '';
+    if ($(this).css("background-color") === "rgb(255, 255, 255)") {
+      e.returnValue = "";
     }
-  })
+  });
 });
 
 loadTasks();
