@@ -7,9 +7,9 @@ var auditTasks = function () {
     var taskTimestampHr = moment($(this).text(), "h A");
     var nowTimestampHr = moment().hour("h A");
     var taskRowEl = $(this).parent().children(".description");
-    
+
     // removes all classes
-    taskRowEl.removeClass('future past present');
+    taskRowEl.removeClass("future past present");
 
     if (taskTimestampHr.isAfter(nowTimestampHr)) {
       taskRowEl.addClass("future");
@@ -46,14 +46,19 @@ var periodicallyUpdateCurrentTimeStamp = function () {
   }, 1000);
 };
 
-// // when changes are unsaved, revert css styling of background and color
-// $(".row .description").on("blur", function () {
-//   location.reload();
-// });
-
 // on task row click, highlight the task
 $(".row .description").on("click select", function () {
-  $(this).css({ "background-color": "white", color: "black" });
+  $(this).css({ "background-color": "white", "font-style": "italic" });
+  $(this)
+    .parent()
+    .children(".saveBtn")
+    // swap save btn coloring to highlight the unsaved changes
+    .css({ "background-color": "white", color: "#06aed5" });
+});
+
+// when changes are unsaved, revert css styling
+$(".row .description").blur(function () {
+  $(this).css("background-color", "");
 });
 
 // on task save, update the tasks object and the localStorage
@@ -61,11 +66,22 @@ $(".row .saveBtn").on("click", function () {
   var editedTaskFieldEl = $(this).parent().children(".description");
   var text = editedTaskFieldEl.val().trim();
   var taskId = editedTaskFieldEl.attr("data-task-id");
-
+  
+  $(this).css({ "background-color": "#06aed5", color: "white" })
+  editedTaskFieldEl.css("font-style", "normal");
   tasks[taskId] = text;
   localStorage.setItem("tasks", JSON.stringify(tasks));
+});
 
-  location.reload();
+// prompts to save unsaved changes before page reload
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  // only prompt if there are unsaved tasks
+  $(".saveBtn").each(function (index) {
+    if ($(this).css('background-color')==='rgb(255, 255, 255)'){
+      e.returnValue = '';
+    }
+  })
 });
 
 loadTasks();
